@@ -76,9 +76,14 @@
         <!-- List Rendering and Conditional Class Binding -->
         <div class="photo" v-for="pic in photos" :key="pic.id">
           <!-- An image goes here -->
-
-          <img :src="pic.url" />
-          <button class="favorite-button">★</button>
+          <img :src="pic.url" @click="removePhoto(pic.id)" />
+          <button
+            class="favorite-button"
+            @click="toggleFavorite(pic)"
+            :class="{active:pic.isFavorite}"
+          >
+            ★
+          </button>
         </div>
       </div>
     </div>
@@ -104,11 +109,20 @@
               addNewUrl.value = "";
             }
           };
-          const toggleFavorite = () => {
-            // Favorite toggling logic
+
+          const toggleFavorite = (pic) => {
+            console.log(pic);
+            pic.isFavorite = !pic.isFavorite;
+            console.log(pic);
           };
 
-          return { addPhoto, photos, addNewUrl };
+          const removePhoto = (index) => {
+            photos.value.pop(index);
+
+            console.log("I am the Index that users want to remove: " + index);
+          };
+
+          return { addPhoto, photos, addNewUrl, removePhoto, toggleFavorite };
         },
       };
       createApp(App).mount("#app");
