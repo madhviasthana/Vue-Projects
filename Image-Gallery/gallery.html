@@ -117,7 +117,7 @@
           };
 
           const removePhoto = (index) => {
-            photos.value.pop(index);
+            photos.value.splice(index - 1, 1);
 
             console.log("I am the Index that users want to remove: " + index);
           };
